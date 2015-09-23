@@ -21,7 +21,7 @@ public class BaseConverter {
             System.out.print("Starting Number: ");
 
             for(long a:startingNumber) {
-                System.out.print(a);
+                System.out.print("[" + a + "]");
             }
 
 
@@ -101,12 +101,10 @@ public class BaseConverter {
     }
 
     public static boolean validArgs(String[] args) {
-        try {
-            if((args.length > 3) || (args[0].charAt(0) != '[') || (args.length <= 1)) {
+        
+            if((args.length > 3) || (args[0].charAt(0) != '[') || (args.length <= 1) || (args[0].charAt(args[0].length() - 1) != ']')) {
                 return false;
             }
-            Long.parseLong(args[1]);
-            
 
             for(int i = 0;i < args[0].length();i++) {
                 if(args[0].charAt(i) == ' ' || Character.isLetter(args[0].charAt(i))) {
@@ -120,7 +118,7 @@ public class BaseConverter {
             }
 
             if(args.length == 3) {
-                Long.parseLong(args[2]);
+                
                 for(int i = 0; i < args[2].length();i++) {
                     if(args[2].charAt(i) == ' ' || Character.isLetter(args[2].charAt(i))) {
                         return false;
@@ -128,11 +126,5 @@ public class BaseConverter {
                 }
             }
             return true;
-
-        } catch(NumberFormatException nfe) {
-            return false;
-        } catch(ArrayIndexOutOfBoundsException aioobe) {
-            return false;
-        }
     }
 }
