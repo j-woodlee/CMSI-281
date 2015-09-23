@@ -11,7 +11,12 @@ public class BaseConverter {
 
             long[] startingNumber = deduceDigits(args[0]);
             long startingBase = Long.parseLong(args[1]);
-            long targetBase = Long.parseLong(args[2]);
+            long targetBase;
+            if(args.length == 3) {
+                targetBase = Long.parseLong(args[2]);
+            } else {
+                targetBase = 10;
+            }
 
             System.out.print("Starting Number: ");
 
@@ -32,8 +37,6 @@ public class BaseConverter {
             } else {
                 System.out.println("Number in target base: " + numberInTargetBase);
             }
-
-            
         }
     }
 
@@ -101,6 +104,28 @@ public class BaseConverter {
         try {
             if((args.length > 3) || (args[0].charAt(0) != '[') || (args.length <= 1)) {
                 return false;
+            }
+            Long.parseLong(args[1]);
+            
+
+            for(int i = 0;i < args[0].length();i++) {
+                if(args[0].charAt(i) == ' ' || Character.isLetter(args[0].charAt(i))) {
+                    return false;
+                }
+            }
+            for(int i = 0; i < args[1].length();i++) {
+                if(args[1].charAt(i) == ' ' || Character.isLetter(args[1].charAt(i))) {
+                    return false;
+                }
+            }
+
+            if(args.length == 3) {
+                Long.parseLong(args[2]);
+                for(int i = 0; i < args[2].length();i++) {
+                    if(args[2].charAt(i) == ' ' || Character.isLetter(args[2].charAt(i))) {
+                        return false;
+                    }
+                }
             }
             return true;
 
