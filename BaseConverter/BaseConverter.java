@@ -10,10 +10,6 @@ public class BaseConverter {
 
     
     
-
-
-
-
     /** Takes a String array and using other static methods within the class, 
     *goes from a starting number in a starting base to a target base.
     *@param args    String array that holds the digits of the starting number, the starting number base, and the target base 
@@ -135,10 +131,13 @@ public class BaseConverter {
         String targetNumber = "";
 
         long dividend = baseTenNumber;
+        if(baseTenNumber == 0) {
+            return "[0]";
+        }
         while(dividend > 0) {
             System.out.println(dividend + "/" + targetBase + " = " + dividend/targetBase + "R" + dividend%targetBase);
             
-            targetNumber = targetNumber + (dividend % targetBase);
+            targetNumber =  targetNumber + ']' + ((dividend % targetBase)) + '[';
             dividend = dividend / targetBase;
         }
 
@@ -156,27 +155,46 @@ public class BaseConverter {
 
     public static boolean validArgs(String[] args) {
         
-            if((args.length > 3) || (args.length <= 1) || (args[0].charAt(0) != '[') || (args[0].charAt(args[0].length() - 1) != ']')) {
+            if((args.length > 3) || (args.length <= 1)) {//test args.length is proper size
+                System.out.println("here0");
+                return false;
+            }
+            
+
+            for(int i = 0; i < args[0].length();i++) {//test args[0]
+
+                if(args[0].charAt(i) == '[' || args[0].charAt(i) == ']') {
+                    continue;
+                } else if(!Character.isDigit(args[0].charAt(i))) {
+                    System.out.println("here2");
+                    return false;
+                }
+            }
+
+            for(int i = 0; i < args[1].length();i++) {//test args[1]
+                if(!Character.isDigit(args[1].charAt(i))) {
+                    System.out.println("here3");
+                    return false;
+                }
+            }
+
+            if(Long.parseLong(args[1]) <= 1) {//test that args[1] is a valid base
+                System.out.println("here1");
                 return false;
             }
 
-            for(int i = 0;i < args[0].length();i++) {
-                if(args[0].charAt(i) == ' ' || Character.isLetter(args[0].charAt(i))) {
-                    return false;
-                }
-            }
-            for(int i = 0; i < args[1].length();i++) {
-                if(args[1].charAt(i) == ' ' || Character.isLetter(args[1].charAt(i))) {
-                    return false;
-                }
-            }
-
             if(args.length == 3) {
-                
-                for(int i = 0; i < args[2].length();i++) {
-                    if(args[2].charAt(i) == ' ' || Character.isLetter(args[2].charAt(i))) {
+
+                for(int i = 0; i < args[2].length();i++) {//test args[2]
+                    if(!Character.isDigit(args[2].charAt(i))) {
+                        System.out.println("here5");
                         return false;
                     }
+                }
+
+                if(Long.parseLong(args[2]) <= 1) {//test args[2] is a valid base
+                    System.out.println("here4");
+                    return false;
                 }
             }
             return true;
