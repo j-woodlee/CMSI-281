@@ -1,7 +1,24 @@
+/**
+  *Converts a starting number in a starting base to a target base.
+  *@author Jake Woodlee
+  *@version 1.0
+**/
+
+
 
 public class BaseConverter {
 
+    
+    
 
+
+
+
+    /** Takes a String array and using other static methods within the class, 
+    *goes from a starting number in a starting base to a target base.
+    *@param args    String array that holds the digits of the starting number, the starting number base, and the target base 
+    *
+    **/
     public static void main(String[] args) {
         
         if(!validArgs(args)) {
@@ -40,9 +57,19 @@ public class BaseConverter {
         }
     }
 
+
+    /** Prints out the proper way to input the starting number, starting base, and target base. **/
     public static void usage() {
-        System.out.println("<starting number with digits separated by brackets like this: [0][0][0][0]> <starting base> <target base>");
+        System.out.println("<starting number with digits separated by brackets like this: [digitOne][digitTwo][digitThree][digitFour] etc.> <starting base> <target base>");
     }
+
+
+    /**
+     *Deduces the startingNumber digits from within a String and returns a long[] filled with the digits.
+     *
+     * @param argument    String representing the digits of a number like this: "[digitOne][digitTwo][digitThree][digitFour]".
+     * @return long[] holding the digits from argument
+     **/
 
     public static long[] deduceDigits(String argument) {
         int numberOfDigits = 0;
@@ -73,6 +100,15 @@ public class BaseConverter {
         return digits;
     }
 
+    /**
+    *
+    *Takes a starting number and a starting base and converts the starting number to base ten.
+    *
+    *@param startingNumber  long[] holding the digits of the starting number
+    *@param startingBase    long representing the current base startingNumber is in
+    *@return  long holding the value of the startingNumber in base ten
+    **/
+
     public static long baseToTen(long[] startingNumber, long startingBase) {
         long sum = 0;
         long toBeAdded;
@@ -85,6 +121,15 @@ public class BaseConverter {
 
         return sum;
     }
+
+    /**
+    *
+    *Takes a number in base ten, and a target base, and returns the number in the target base.
+    *
+    *@param baseTenNumber  long holding a number in base ten
+    *@param targetBase   long holding the target base
+    *@return  String that holds the base ten number that has been converted to the targetBase
+    **/
 
     public static String tenToBase(long baseTenNumber, long targetBase) {
         String targetNumber = "";
@@ -100,9 +145,18 @@ public class BaseConverter {
         return new StringBuilder(targetNumber).reverse().toString();
     }
 
+    /**
+    *
+    * Tests if the arguments passed through it are valid.
+    *
+    *@param args  String[] holding the value of arguments to be tested.
+    *
+    *@return  boolean, true if the arguments passed are valid, false otherwise
+    **/
+
     public static boolean validArgs(String[] args) {
         
-            if((args.length > 3) || (args[0].charAt(0) != '[') || (args.length <= 1) || (args[0].charAt(args[0].length() - 1) != ']')) {
+            if((args.length > 3) || (args.length <= 1) || (args[0].charAt(0) != '[') || (args[0].charAt(args[0].length() - 1) != ']')) {
                 return false;
             }
 
