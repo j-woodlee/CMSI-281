@@ -29,27 +29,12 @@ public class BaseConverter {
                 targetBase = Long.parseLong(args[2]);
             } else {
                 targetBase = 10;
-            }
-
-            System.out.print("Starting Number: ");
-
-            for(long a:startingNumber) {
-                System.out.print("[" + a + "]");
-            }
-
-
-            System.out.println("\n" + "Starting Base: " + startingBase);
-            System.out.println("Target Base: " + targetBase);
+            }            
 
             long numberInBaseTen = baseToTen(startingNumber, startingBase);
-            System.out.println("Number in base ten: " + numberInBaseTen);
-
-            String numberInTargetBase = tenToBase(numberInBaseTen, targetBase);
-            if(numberInTargetBase.equals("")) {
-                System.out.println("Number in target base: " + 0);
-            } else {
-                System.out.println("Number in target base: " + numberInTargetBase);
-            }
+            
+            System.out.println(tenToBase(numberInBaseTen, targetBase));
+        
         }
     }
 
@@ -76,7 +61,6 @@ public class BaseConverter {
             }
         }
 
-        System.out.println("startingNumber digit number: " + numberOfDigits);
         long[] digits = new long[numberOfDigits];
 
         int digitIndex = 0;
@@ -136,8 +120,6 @@ public class BaseConverter {
         }
         
         while(dividend > 0) {
-            System.out.println(dividend + "/" + targetBase + " = " + dividend/targetBase + "R" + dividend%targetBase);
-
             targetNumber = "[" + dividend%targetBase + "]" + targetNumber;;
             dividend = dividend / targetBase;
         }
