@@ -134,14 +134,15 @@ public class BaseConverter {
         if(baseTenNumber == 0) {
             return "[0]";
         }
+        
         while(dividend > 0) {
             System.out.println(dividend + "/" + targetBase + " = " + dividend/targetBase + "R" + dividend%targetBase);
-            
-            targetNumber =  targetNumber + ']' + ((dividend % targetBase)) + '[';
+
+            targetNumber = "[" + dividend%targetBase + "]" + targetNumber;;
             dividend = dividend / targetBase;
         }
 
-        return new StringBuilder(targetNumber).reverse().toString();
+        return targetNumber;
     }
 
     /**
@@ -159,14 +160,26 @@ public class BaseConverter {
                 System.out.println("here0");
                 return false;
             }
-            
 
-            for(int i = 0; i < args[0].length();i++) {//test args[0]
+            if(args[0].charAt(args[0].length() - 1) != ']') {
+                return false;
+            }
 
-                if(args[0].charAt(i) == '[' || args[0].charAt(i) == ']') {
+            if(args[0].charAt(0) != '[') {
+                return false;
+            }
+
+            for(int i = 0; i < args[0].length() - 1;i++) {//test args[0]
+
+                if(args[0].charAt(i) == '[' && Character.isDigit(args[0].charAt(i+1))) {
                     continue;
-                } else if(!Character.isDigit(args[0].charAt(i))) {
-                    System.out.println("here2");
+                } else if (args[0].charAt(i) == ']' && args[0].charAt(i+1) == '[') {
+                    continue;
+                } else if(Character.isDigit(args[0].charAt(i)) && Character.isDigit(args[0].charAt(i+1))) {
+                    continue;
+                } else if (Character.isDigit(args[0].charAt(i)) && args[0].charAt(i+1) == ']') {
+                    continue;
+                } else {
                     return false;
                 }
             }
@@ -187,16 +200,23 @@ public class BaseConverter {
 
                 for(int i = 0; i < args[2].length();i++) {//test args[2]
                     if(!Character.isDigit(args[2].charAt(i))) {
-                        System.out.println("here5");
                         return false;
                     }
                 }
 
                 if(Long.parseLong(args[2]) <= 1) {//test args[2] is a valid base
-                    System.out.println("here4");
                     return false;
                 }
             }
+
+            long[] testArgs = deduceDigits(args[0]);
+
+            for(int i = 0; i < testArgs.length;i++) {
+                if(testArgs[i] >= Long.parseLong(args[1])) {
+                    return false;
+                }
+            }
+
             return true;
     }
 }
