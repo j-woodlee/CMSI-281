@@ -100,7 +100,7 @@ public class NumberList implements java.util.Collection {
 
     /** Compares the specified object with this collection for equality. */
     public boolean equals ( Object obj ) {
-        if(!(obj instanceof NumberList) || obj == null) {
+        if(!(obj instanceof NumberList) || obj == null ) {
             return false;
         }
 
@@ -294,13 +294,44 @@ public class NumberList implements java.util.Collection {
     
     /** This main method is just a comprehensive test program for the class. */
     public static void main ( String[] args ) {
+        NumberList n1 = new NumberList(new Long[] {new Long(1), new Long(-1), new Long(0), new Long(99), new Long(40), new Long(-69)});
+        NumberList n2 = new NumberList(new Long[] {new Long(2), new Long(-1), new Long(0), new Long(99), new Long(40), new Long(-69)});
+        System.out.println("Should all be true if working properly.");
+
+        System.out.println("Testing equals...");
+        System.out.println(!n1.equals(n2));
+        System.out.println(!n2.equals(n1));
+        n2.longArray[0] = new Long(1);
+        System.out.println(n1.equals(n2));
+        System.out.println(n2.equals(n1));
+        n1 = new NumberList(new Long[] {new Long(1), new Long(-1), new Long(0), new Long(99), new Long(40)});
+        System.out.println(!n1.equals(n2));
+        n2 = null;
+        System.out.println(!n1.equals(n2));
+        n2 = new NumberList(new Long[] {new Long(10), new Long(-11), new Long(9), new Long(7), new Long(40), new Long(-345879)});
+        System.out.println(!n1.equals(n2));
+        System.out.println(!n2.equals(n1));
+        Object o = (Object)n2;
+        System.out.println(!n1.equals(o));
+
         System.out.println("Testing add...");
+        n2 = new NumberList();
+        n2.add(new Long(1));
+        n2.add(new Long(-1));
+        n2.add(new Long(-69));
+        n2.add(new Long(-69));
+        n2.add(new Long(69));
+        n2.add(new Long(0));
+        System.out.println(n2.equals(new NumberList(new Long[] {new Long(1), new Long(-1), new Long(-69), new Long(-69), new Long(69), new Long(0)})));
+        System.out.println(n2.equals(new NumberList(new Long[] {new Long(1), new Long(-1), new Long(-69), new Long(-69), new Long(69), new Long(0)})));
+
+
         
         System.out.println("Testing addAll...");
         System.out.println("Testing clear...");
         System.out.println("Testing contains...");
         System.out.println("Testing containsAll...");
-        System.out.println("Testing equals...");
+        
         System.out.println("Testing isEmpty...");
         System.out.println("Testing remove...");
         System.out.println("Testing removeAll...");
