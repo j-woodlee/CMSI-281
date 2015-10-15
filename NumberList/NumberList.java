@@ -123,11 +123,7 @@ public class NumberList implements java.util.Collection {
  
     /** Returns the hashcode value for this collection. */
     public int hashCode () {
-        int i = 0;
-        for(Long l : longArray) {
-            i += l.hashCode();
-        }
-        return i;
+        return super.hashCode();
     }
 
     /** Returns true if this collection contains no elements. */
@@ -144,7 +140,7 @@ public class NumberList implements java.util.Collection {
     /** Returns an iterator over the elements in this collection. Replicated elements should
         be "iterated over" just once. */
     public java.util.Iterator iterator () {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
+        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE *///optional activity.
         throw new UnsupportedOperationException();
     }
 
@@ -199,14 +195,23 @@ public class NumberList implements java.util.Collection {
          In other words, removes from this collection all of its elements that are not contained in the 
          specified collection. */
     public boolean retainAll ( java.util.Collection c ) {
-        throw new UnsupportedOperationException();
+        if (!(c instanceof NumberList) || c == null) {
+            return false;
+        }
+
+        NumberList n = (NumberList) c;
+        for(int i = 0; i < this.longArray.length;i++) {
+            if(!n.contains(this.longArray[i])) {//if n does not contain the element in this.longArray, remove element
+                this.remove(this.longArray[i]);
+            }
+        }
+        return true;
     }
 
 
     /** Returns the number of elements in this number list, including duplicates. */
     public int sizeIncludingDuplicates () {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+        return this.longArray.length;
     }
     
     
@@ -228,21 +233,33 @@ public class NumberList implements java.util.Collection {
 
     /** Returns the number of elements in this number list, not including duplicates. */
     public int size () {
-        int count = 0;
+        int numberOfDupes = 0;
 
-        //for(int i = 0) {
+        for(int i = 0; i < this.longArray.length;i++) {
+            for(int j = 0; j < this.longArray.length; j++) {
+                if(this.longArray[i].equals(this.longArray[j]) && (i != j)) {
+                    numberOfDupes++;
+                }
+            }
+        }
 
-        //}
-        return count;
+        return this.longArray.length - numberOfDupes;
     }
-
-
 
 
     /** Returns the number of instances of the given element in this number list. */
     public int count ( Object obj ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+        if(!(obj instanceof Long) || obj == null) {
+            return 0;
+        }
+        int numberOfInstances = 0;
+        Long l = (Long) obj;
+        for(int i = 0; i < this.longArray.length;i++) {
+            if(this.longArray[i].equals(l)) {
+                numberOfInstances++;
+            }
+        }
+        return numberOfInstances;
     }
     
 
@@ -266,51 +283,35 @@ public class NumberList implements java.util.Collection {
     /** This so-called "static factory" returns a new number list comprised of the numbers in the specified array.
         Note that the given array is long[], not Long[]. */
     public static NumberList fromArray ( long[] l ) {
-        /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
-        throw new UnsupportedOperationException();
+
+        Long[] lo = new Long[l.length];
+        for(int i = 0; i < l.length;i++) {
+            lo[i] = new Long(l[i]);
+        }
+
+        return new NumberList(lo);
     }
     
     /** This main method is just a comprehensive test program for the class. */
     public static void main ( String[] args ) {
-        NumberList n1 = new NumberList();
-        n1.add(new Long(4));
-        n1.add(new Long(2));
-        n1.add(new Long(10));
-        n1.add(new Long(-1));
-        n1.add(new Long(0));
-        System.out.println(n1);
-        NumberList n2 = new NumberList(new Long[] {new Long(1), new Long(2), new Long(3), new Long(4)});
-        System.out.println(n2);
-        n1.addAll(n2);
-        n2.clear();
-        System.out.println(n2);
-
-        System.out.println(n1.contains(new Long(10)));
-        System.out.println(n1.contains(new Long(9)));
-        System.out.println(n1.contains(new Long(-1)));
-        n2.add(new Long(4));
-        n2.add(new Long(2));
-        n2.add(new Long(-1));
-        n2.add(new Long(0));
-
-        n1.clear();
-        n2.clear();
-
-        n1.add(new Long(10));
-        n2.add(new Long(10));
-        System.out.println(n1.containsAll(n2));
-        n1.add(new Long(11));
-        n2.add(new Long(11));
-        n2.add(new Long(12));
-    
-        System.out.println(n1.containsAll(n2));
+        System.out.println("Testing add...");
         
-        System.out.println(n1.containsAll(n2));
-       
-        System.out.println(n1);
-        System.out.println(n1.containsAll(n2));
-
-        System.out.println(n1.equals(n2));
+        System.out.println("Testing addAll...");
+        System.out.println("Testing clear...");
+        System.out.println("Testing contains...");
+        System.out.println("Testing containsAll...");
+        System.out.println("Testing equals...");
+        System.out.println("Testing isEmpty...");
+        System.out.println("Testing remove...");
+        System.out.println("Testing removeAll...");
+        System.out.println("Testing retainAll");
+        System.out.println("Testing sizeIncludingDuplicates...");
+        System.out.println("Testing toArray");
+        System.out.println("Testing size...");
+        System.out.println("Testing count...");
+        System.out.println("Testing toString...");
+        System.out.println("Testing fromArray...");
+        
 
     }
 }
