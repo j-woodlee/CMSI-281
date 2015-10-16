@@ -20,7 +20,7 @@ public class NumberList implements java.util.Collection {
         this.longArray = l;
     }
     
-    /** Increases by one the number of instances of the given element in this collection. Big Theta of N where N is the size of the array*/
+    /** Increases by one the number of instances of the given element in this collection. Big Theta of N */
     public boolean add ( Object obj ) {//add null checks
         /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
         if (!(obj instanceof Long) || obj == null) {
@@ -147,7 +147,7 @@ public class NumberList implements java.util.Collection {
 
 
     /** Removes a single instance of the specified element from 
-        this collection, if it is present. Big theta of N to the N*/
+        this collection, if it is present. Big theta of N*/
     public boolean remove ( Object obj ) {
         /* REPLACE THE NEXT STATEMENT WITH YOUR CODE */
         if(!(obj instanceof Long) || obj == null) {
@@ -187,7 +187,7 @@ public class NumberList implements java.util.Collection {
 
 
     /** Removes all of this collection's elements that are also contained 
-        in the specified collection. Big theta of */
+        in the specified collection. Big theta of n cubed*/
     public boolean removeAll ( java.util.Collection c ) {
         if(!(c instanceof NumberList) || c == null) {
             return false;
@@ -207,7 +207,7 @@ public class NumberList implements java.util.Collection {
 
     /** Retains only the elements in this collection that are contained in the specified collection. 
          In other words, removes from this collection all of its elements that are not contained in the 
-         specified collection. */
+         specified collection. Big theta of N squared*/
     public boolean retainAll ( java.util.Collection c ) {
         if (!(c instanceof NumberList) || c == null) {
             return false;
@@ -215,25 +215,33 @@ public class NumberList implements java.util.Collection {
 
         NumberList n = (NumberList) c;
 
-        for(int i = 0; i < this.longArray.length;i++) {
-            if(n.contains(this.longArray[i])) {
-                continue;
+        for(int i = 0; i < longArray.length;i++) {
+            if(!(n.contains(this.longArray[i]))) {
+                this.remove(this.longArray[i]);
+                i--;
             }
-            this.remove(this.longArray[i]);
         }
         return true;
     }
 
 
-    /** Returns the number of elements in this number list, including duplicates. */
+    /** Returns the number of elements in this number list, including duplicates. Big theta of 1*/
     public int sizeIncludingDuplicates () {
         return this.longArray.length;
     }
     
     
 
-    /** Returns a long[] containing all of the elements in this collection, not including duplicates. */
+    /** Returns a Long[] containing all of the elements in this collection, not including duplicates. Big theta of n cubed*/
     public Long[] toArray () {
+        for(int i = 0; i < this.longArray.length;i++) {
+            for(int j = i+1; j < this.longArray.length;j++) {
+                if(this.longArray[i].equals(this.longArray[j])) {
+                    this.remove(this.longArray[i]);
+                }
+            }
+        }
+
         return this.longArray;
     }
 
@@ -247,14 +255,13 @@ public class NumberList implements java.util.Collection {
 
 
 
-    /** Returns the number of elements in this number list, not including duplicates. */
+    /** Returns the number of elements in this number list, not including duplicates. Big Theta of N cubed*/
     public int size () {
-        return 1;
+        return this.toArray().length;
+   }
 
-    }
 
-
-    /** Returns the number of instances of the given element in this number list. */
+    /** Returns the number of instances of the given element in this number list. Big theta of N*/
     public int count ( Object obj ) {
         if(!(obj instanceof Long) || obj == null) {
             return 0;
@@ -271,7 +278,7 @@ public class NumberList implements java.util.Collection {
     
 
     
-    /** This returns a stringy version of this number list. */
+    /** This returns a stringy version of this number list. Big theta of N*/
     public String toString () { // overrides Object.toString()
         if(this.longArray.length == 0) {
             return "[]";
@@ -288,7 +295,7 @@ public class NumberList implements java.util.Collection {
 
     
     /** This so-called "static factory" returns a new number list comprised of the numbers in the specified array.
-        Note that the given array is long[], not Long[]. */
+        Note that the given array is long[], not Long[]. Big theta of N*/
     public static NumberList fromArray ( long[] l ) {
 
         Long[] lo = new Long[l.length];
@@ -362,6 +369,14 @@ public class NumberList implements java.util.Collection {
         System.out.println(n2.contains(new Long(-234234)));
         System.out.println(!n1.contains(new Long(-2342342)));
 
+        n1 = new NumberList();
+        //n2 = new NumberList(new Long[] {new Long(-234234), new Long(234234), new Long(234), new Long(123123134)});
+
+        System.out.println();
+        System.out.println();
+
+
+
         System.out.println("Testing containsAll...");
         n1 = new NumberList(new Long[] {new Long(-1), new Long(0), new Long(1), new Long(123123134)});
         n2 = new NumberList(new Long[] {new Long(-99999), new Long(123), new Long(34), new Long(1231134)});
@@ -414,17 +429,19 @@ public class NumberList implements java.util.Collection {
         n1 = new NumberList();
         n2 = new NumberList(new Long[] {new Long(67), new Long(123123134)});
 
-
-        System.out.println(n2);
         n2.retainAll(n1);
-        System.out.println(n2);
         System.out.println(n2.equals(new NumberList()));
+
+
         n1 = new NumberList(new Long[] {new Long(67), new Long(123123134)});
-        n2 = new NumberList(new Long[] {new Long(67), new Long(123123134)});
-        System.out.println();
+        n2 = new NumberList(new Long[] {new Long(67), new Long(123123134), new Long(45)});
+        n2.retainAll(n1);
+        System.out.println(n2.equals(new NumberList(new Long[] {new Long(67), new Long(123123134)})));
 
-
-
+        n1 = new NumberList(new Long[] {new Long(67), new Long(123123134), new Long(45)});
+        n2 = new NumberList(new Long[] {new Long(67), new Long(123123134), new Long(45)});
+        n2.retainAll(n1);
+        System.out.println(n2.equals(new NumberList(new Long[] {new Long(67), new Long(123123134), new Long(45)})));
 
 
         System.out.println("Testing sizeIncludingDuplicates...");
@@ -436,7 +453,7 @@ public class NumberList implements java.util.Collection {
         System.out.println(n2.sizeIncludingDuplicates() == 3);
 
         System.out.println("Testing toArray");
-        n1 = new NumberList(new Long[] {new Long(67), new Long(123123134), new Long(45), new Long(1), new Long(-1)});
+        n1 = new NumberList(new Long[] {new Long(67), new Long(123123134), new Long(45), new Long(1), new Long(-1), new Long(-1), new Long(45)});
         Long[] longs1 = n1.toArray();
         Long[] longs2 = new Long[] {new Long(67), new Long(123123134), new Long(45), new Long(1), new Long(-1)};
 
@@ -454,6 +471,12 @@ public class NumberList implements java.util.Collection {
         System.out.println(n1.size() == 5);
         n1.add(new Long(67));
         System.out.println(n1.size() == 5);
+
+        n1.add(new Long(67));
+        System.out.println(n1.size() == 5);
+        n1.add(new Long(67));
+        System.out.println(n1.size() == 5);
+
         n1.add(new Long(34));
 
         System.out.println("Testing count...");
