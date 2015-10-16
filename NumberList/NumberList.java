@@ -370,10 +370,7 @@ public class NumberList implements java.util.Collection {
         System.out.println(!n1.contains(new Long(-2342342)));
 
         n1 = new NumberList();
-        //n2 = new NumberList(new Long[] {new Long(-234234), new Long(234234), new Long(234), new Long(123123134)});
-
-        System.out.println();
-        System.out.println();
+        
 
 
 
@@ -399,10 +396,8 @@ public class NumberList implements java.util.Collection {
         n1.remove(new Long(-1));
         System.out.println(n1.equals(new NumberList(new Long[] {new Long(00), new Long(1), new Long(909090)})));
         n2.remove(new Long(-99999));
-        System.out.println(n2);
         System.out.println(n2.equals(new NumberList(new Long[] {new Long(123), new Long(34), new Long(1231134)})));
         n2.remove(new Long(1231134));
-        System.out.println(n2);
         System.out.println(n2.equals(new NumberList(new Long[] {new Long(123), new Long(34)})));
         n1.remove(new Long(1));
         System.out.println(n1.equals(new NumberList(new Long[] {new Long(0), new Long(909090)})));
