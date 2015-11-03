@@ -23,4 +23,7 @@ public class DequeNode {
     public void setLeft(DequeNode d) {
         this.toTheLeft = d;
     }
+    public Object getInfo() {
+        return this.info;
+    }
 }
