@@ -128,6 +128,29 @@ public class LinkedDeque {
         deque.deleteRight();
         System.out.println(deque);
 
+        deque.insertLeft("test");
+        System.out.println(deque);
+
+        deque.deleteLeft();
+        System.out.println(deque);
+
+        //deque.deleteRight();
+
+        deque.insertLeft("test1");
+        deque.insertRight("test2");
+        deque.insertLeft("test0");
+        deque.insertLeft("test-1");
+        deque.insertLeft("test-2");
+        deque.insertRight("test3");
+        deque.insertRight("test4");
+
+        System.out.println(deque);
+
+        System.out.println(deque.left());
+        System.out.println(deque.right());
+        System.out.println(deque.size());
+
+        
 
     }
 }
