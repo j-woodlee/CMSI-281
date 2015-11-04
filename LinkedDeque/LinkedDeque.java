@@ -81,17 +81,12 @@ public class LinkedDeque {
     public String toString () {
 
         DequeNode next = this.beginning;
-        //System.out.println(this.beginning.getInfo());
-        //System.out.println(next.getInfo());
-
 
         String s = "";
 
          if(this.size > 0) {
              while (next != null) {
-                //System.out.println(next);
                 s = s + "[" + next.getInfo().toString() + "]";
-                //System.out.println(next.getRight());
                 next = next.getRight();
              }
          }
@@ -150,7 +145,7 @@ public class LinkedDeque {
         System.out.println(deque.right());
         System.out.println(deque.size());
 
-        
+
 
     }
 }
