@@ -1,4 +1,4 @@
-/** Traverses through a binary tree in pre-order. */
+/** Traverses through a binary tree in pre-order, the difference is that next() returns a node and not the data in the node. */
 import java.lang.Iterable;
 import java.util.Iterator;
 import java.util.Stack;
