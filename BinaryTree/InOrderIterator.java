@@ -2,55 +2,42 @@
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Stack;
 
 public class InOrderIterator implements Iterator {
-     private BTNode nextNode;
-       
 
-    public InOrderIterator (BTNode bn) {
-        nextNode = bn;
-        if(nextNode == null) {
-            return;
-        }
-        while(nextNode.getLeft() != null) {
-            nextNode = bn.getLeft();
+    private Stack<BTNode> stack = new Stack<BTNode>();
+
+    public InOrderIterator (BTNode root) {
+        if(root != null) {
+            BTNode currentNode = root;
+            stack.push(currentNode);
+            while(currentNode.getLeft() != null) {
+                stack.push(currentNode.getLeft());
+                currentNode = currentNode.getLeft();
+            }
         }
     }
 
     public boolean hasNext () {
-        return nextNode != null;
+        return !stack.isEmpty();
     }
 
     public Object next() {
-        if(nextNode == null) {
-          throw new NoSuchElementException();
+        if(!hasNext()) {
+            throw new NoSuchElementException();
         }
-        BTNode next = nextNode;
-        if(nextNode.getRight() != null) {
-            nextNode = nextNode.getRight();
+
+        BTNode currentNode = stack.pop();
+        if(currentNode.getRight() != null) {
+            BTNode nextNode = currentNode.getRight();
+            stack.push(nextNode);
             while(nextNode.getLeft() != null) {
+                stack.push(nextNode.getLeft());
                 nextNode = nextNode.getLeft();
             }
-            return next.getData();
-        } else while(true) {
-            if(nextNode.getParent() == null) {
-                nextNode = null;
-                return next.getData();
-            }
-            if(nextNode.getParent().getLeft() == nextNode) {
-                nextNode = nextNode.getParent();
-                return next.getData();
-            }
-            
-            // if((nextNode.getRight() == null) && (nextNode.getLeft() == null)) {
-            //    if() {
-
-            //    }
-            //    while(parent.getRight() = ) {
-
-            //     }
-            
         }
+        return currentNode.getData();
     }
 
     public void remove () {
