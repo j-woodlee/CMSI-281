@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 public class BinaryTree implements Iterable {
     private BTNode root;
     private BTNode cursor;
@@ -241,8 +240,20 @@ public class BinaryTree implements Iterable {
 
         System.out.println("----------");
 
-        BinaryTree bt1 = new BinaryTree(new String("test"));
-        bt.similar(bt1);
 
+
+        BinaryTree bt1 = new BinaryTree(new String("test"));
+        bt1.attachRightSonAtCursor("2");
+        bt1.attachLeftSonAtCursor("1");
+        bt1.putCursorAtLeftSon();
+
+        bt1.attachRightSonAtCursor("4");
+        bt1.attachLeftSonAtCursor("3");
+
+        
+        InOrderIterator ioi = new InOrderIterator(bt1.getRoot());
+        while(ioi.hasNext()) {
+            System.out.println(ioi.next());
+        }
     }
 }
