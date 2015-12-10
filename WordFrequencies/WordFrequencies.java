@@ -1,5 +1,4 @@
 
-
 import java.util.HashMap;
 import java.util.Scanner;
 import java.util.Collections;
@@ -28,7 +27,7 @@ public class WordFrequencies {
             System.out.println("Usage: java WordFrequencies [-cs] < file");
         }
 
-        Scanner scan = new Scanner(System.in).useDelimiter("[^0-9a-zA-z\\-]");
+        Scanner scan = new Scanner(System.in).useDelimiter("[^0-9a-zA-Z\\-]");
 
         while (scan.hasNext()) { // while there is a next argument
             String s = scan.next();
