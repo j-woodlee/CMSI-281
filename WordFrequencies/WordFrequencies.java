@@ -21,18 +21,20 @@ public class WordFrequencies {
                 caseSensitive = true;
             } else {
                 System.out.println("Usage: java WordFrequencies [-cs] < file");
+                return;
             }
-            
         } else if(args.length > 1) {
             System.out.println("Usage: java WordFrequencies [-cs] < file");
+            return;
         }
 
-        Scanner scan = new Scanner(System.in).useDelimiter("[^0-9a-zA-Z\\-]");
+        Scanner scan = new Scanner(System.in).useDelimiter("[^0-9a-zA-Z\\-\\']");
 
         while (scan.hasNext()) { // while there is a next argument
             String s = scan.next();
 
             s = s.replace("-", "");
+            s = s.replace("'","");
 
             if(s.length() == 0) {
                 continue;
@@ -53,7 +55,10 @@ public class WordFrequencies {
 
         Collections.sort(list);
 
+        int sum = 0;
+
         for(String s : list) {
+            
             if(!caseSensitive) {
                 s = s.toUpperCase();
             }
