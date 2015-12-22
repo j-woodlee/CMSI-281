@@ -5,3 +5,5 @@ NumberList: 44/47
 
 LinkedDeque: 30/35
   * Missed a few edge cases.
+
+Binary Tree: 39/45
